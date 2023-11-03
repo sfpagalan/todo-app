@@ -1,17 +1,28 @@
 import React from 'react';
-import Todo from './Components/Todo';
-import '@mantine/core/styles.css';
-import { SettingsProvider } from './Context/Settings';
-import { MantineProvider } from '@mantine/core';
+import Auth from './components/auth/auth';
+import Login from './components/auth/login';
+import LoginContext from './components/auth/context';
 
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     return (
-    <MantineProvider >
-      <SettingsProvider>
-        <Todo />
-      </SettingsProvider>
-    </MantineProvider>
+      <LoginContext.Provider>
+        <Login />
+        <Auth>
+          <div>Any valid user can see this</div>
+        </Auth>
+        <Auth capability="create">
+          <div>Users with create access can see this</div>
+        </Auth>
+        <Auth capability="update">
+          <div>Users with update access can see this</div>
+        </Auth>
+        <Auth capability="delete">
+          <div>Users with delete access can see this</div>
+        </Auth>
+      </LoginContext.Provider>
     );
   }
 }
+
+export default App;
